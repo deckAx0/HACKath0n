@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналізатор польотних логів БПЛА</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #121212;
+            color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 700px;
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+        h1 {
+            color: #a4d65e; 
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        p {
+            line-height: 1.6;
+            font-size: 16px;
+            color: #cccccc;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .upload-btn {
+            display: inline-block;
+            background-color: #a4d65e;
+            color: #000000;
+            padding: 16px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .upload-btn:hover {
+            background-color: #8cc446;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
 
+    <div class="container">
+        <h1>Аналіз логів Ardupilot</h1>
+        <p>
+            Інструмент для автоматизованого розбору сирих бінарних лог-файлів польотних контролерів (FC). 
+            Система конвертує дані з датчиків (GPS, IMU), виконує розрахунок ключових кінематичних показників 
+            (швидкості, прискорення, дистанції) та будує точну 3D-модель переміщення апарату.
+        </p>
+        
+        <a href="/form.html" class="upload-btn">ЗАВАНТАЖИТИ ЛОГ-ФАЙЛ</a>
+    </div>
+
+</body>
+</html>
