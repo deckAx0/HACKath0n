@@ -3,6 +3,7 @@ import uuid
 from flask import Blueprint, request, current_app, jsonify, session
 from werkzeug.utils import secure_filename
 from .core.parser import parse_file
+import magic
 
 upload_bp = Blueprint('upload', __name__)
 
@@ -10,7 +11,7 @@ ALLOWED_EXTENSION = {'bin'}
 DEFAULT_MAX_SIZE = 50 * 1024 * 1024
 
 def allowed_extension(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSION
+    return '.' in filename and filename.rsplit('.', 1)[-1].lower() in ALLOWED_EXTENSION
 
 @upload_bp.route('/api/upload', methods=['POST'])
 def upload_file():
@@ -33,6 +34,15 @@ def upload_file():
     if file_length > max_size:
         return jsonify({'error': f'File size exceeds maximum limit: {max_size // (1024 * 1024)} MB'}), 400
     
+    file.read(2048) 
+    file.seek(0)
+
+    real_mime = magic.from_buffer(file.read(2048), mime=True)
+    
+    # for .bin file ardupilot logs
+    if real_mime not in ['application/octet-stream', 'application/x-binary']:
+        return jsonify({'error': 'Invalid file type'}), 400
+
     old_file = session.get('uploaded_file')
     if old_file:
         old_path = os.path.join(current_app.config['UPLOAD_FOLDER'], secure_filename(old_file))
@@ -45,7 +55,7 @@ def upload_file():
     unique_filename = f"{uuid.uuid4()}.bin"
     save_path = os.path.join(current_app.config['UPLOAD_FOLDER'], unique_filename)
 
-    try:
+    try:     
         os.makedirs(current_app.config['UPLOAD_FOLDER'], exist_ok=True)
         file.save(save_path)
         session['uploaded_file'] = unique_filename
