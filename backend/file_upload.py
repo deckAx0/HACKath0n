@@ -39,7 +39,6 @@ def upload_file():
 
     real_mime = magic.from_buffer(file.read(2048), mime=True)
     
-    # for .bin file ardupilot logs
     if real_mime not in ['application/octet-stream', 'application/x-binary']:
         return jsonify({'error': 'Invalid file type'}), 400
 
