@@ -9,7 +9,7 @@ export default function Index() {
 		const formData = new FormData();
 		formData.append('file', file);
 
-		await fetch('/api/log-parse', {
+		await fetch('/api/upload', {
 			method: 'POST',
 			body: formData,
 		})
