@@ -2,7 +2,7 @@ import os
 import uuid
 from flask import Blueprint, request, current_app, jsonify, session
 from werkzeug.utils import secure_filename
-from .core.parser import parse_file
+from core.parser import parse_file
 import magic
 
 upload_bp = Blueprint('upload', __name__)

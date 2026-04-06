@@ -16,7 +16,6 @@ RUN rm -rf /usr/local/apache2/htdocs/*
 
 COPY --from=build /app/build /usr/local/apache2/htdocs/
 
-COPY .htaccess /usr/local/apache2/htdocs/
 COPY my-httpd.conf /usr/local/apache2/conf/httpd.conf
 
 EXPOSE 80
